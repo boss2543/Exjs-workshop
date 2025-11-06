@@ -41,9 +41,9 @@ router.get('/:id/orders', async function(req, res, next) {
 
 router.post('/:id/orders', async function(req, res, next) {
     let { id } = req.params
-  let { user_id, price, stock } = req.body
+    let { user_id, price, stock } = req.body
 
-  console.log('object :>> ', req.body);
+    // onsole.log('object :>> ', req.body);
 
 //   check product stock
 
@@ -67,23 +67,23 @@ router.post('/:id/orders', async function(req, res, next) {
     product.stock = product.stock - stock;
     await product.save();
 
-  let order = new ordersSchema({
-    user_id,
-    product_id : id,
-    price,
-    stock
-    
-  })
+    let order = new ordersSchema({
+        user_id,
+        product_id : id,
+        price,
+        stock
+        
+    })
 
-  await order.save()
+    await order.save()
 
 //   res.send("Insert Successfully");
 
-  return res.status(200).send({
-    status : 200 ,
-    message : "Insert Successfully" ,
-    data : null
-  })
+    return res.status(200).send({
+        status : 200 ,
+        message : "Insert Successfully" ,
+        data : null
+    })
 
 });
 
