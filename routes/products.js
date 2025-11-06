@@ -12,6 +12,13 @@ router.get('/', async function(req, res, next) {
   res.send(products);
 });
 
+router.get('/:id', async function(req, res, next) {
+  let { id } = req.params
+  let product = await userSchema.findById(id)
+  res.send(product);
+});
+
+
 
 
 /* POST products listing. */
