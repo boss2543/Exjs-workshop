@@ -25,6 +25,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+////////////////////////////////////////////////////////////////////////////////////
+
 app.use('/', indexRouter);
 app.use('/users' , tokenMiddleware, usersRouter);
 
@@ -32,6 +34,8 @@ app.use('/api/v1' , require('./routes/index'));
 app.use('/api/v1/users' , tokenMiddleware, require('./routes/users'));
 app.use('/api/v1/products', tokenMiddleware, require('./routes/products'));
 app.use('/api/v1/orders', require('./routes/orders'));
+
+////////////////////////////////////////////////////////////////////////////////////
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

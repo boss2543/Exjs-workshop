@@ -1,3 +1,5 @@
+//////////////////// เชื่อมต่อฐานข้อมูล MongoDB ////////////////////
+
 const mongoose = require('mongoose')
 main().catch(err => console.log(err));
 
