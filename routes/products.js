@@ -71,6 +71,14 @@ router.post('/:id/orders', async function(req, res, next) {
         })
     }
 
+    if(quantity <= 0){
+        return res.status(400).send({
+            status : 400 ,
+            message : "Quantity must be greater than zero" ,
+            data : null
+        })
+    }
+
     // reduce product stock
     product.stock = product.stock - quantity;
     await product.save();
