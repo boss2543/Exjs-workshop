@@ -24,13 +24,18 @@ router.get('/', async function(req, res, next) {
 // });
 
 /* Approve users listing. */
-router.put('/:id', async function(req, res, next) {
+router.put('/:id/approve', async function(req, res, next) {
 
     let { id } = req.params
     let { ids, password } = req.body
 
     let user = await userSchema.findByIdAndUpdate(id, {ids,password,approvestatus: true}, { new: true })
-    res.send(user);
+    // res.send(user);
+    return res.status(200).send({
+      status : 200 ,
+      message: "User approved successfully" ,
+      data: user
+    })
   
 });
 
