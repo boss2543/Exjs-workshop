@@ -40,9 +40,10 @@ router.post('/', async function(req, res, next) {
 
 /* GET products:id listing. */
 router.get('/:id/orders', async function(req, res, next) {
-    let { id } = req.params
-    let product = await userSchema.findById(id)
-    res.send(product);
+    // let { id } = req.params
+    const { id } = req.params
+    const order = await ordersSchema.find({ product_id: id })
+    res.send(order);
 
 });
 
