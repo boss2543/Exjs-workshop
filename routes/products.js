@@ -46,9 +46,10 @@ router.get('/:id/orders', async function(req, res, next) {
 
 });
 
+/* POST Order listing. */
 router.post('/:id/orders', async function(req, res, next) {
     let { id } = req.params
-    let { user_id, price, stock } = req.body
+    let { user_id, price, quantity } = req.body
 
     // onsole.log('object :>> ', req.body);
 
@@ -62,7 +63,7 @@ router.post('/:id/orders', async function(req, res, next) {
             data : null
         })
     }
-    if(product.stock < stock){
+    if(product.stock < quantity){
         return res.status(400).send({
             status : 400 ,
             message : "Insufficient stock" ,
@@ -71,14 +72,14 @@ router.post('/:id/orders', async function(req, res, next) {
     }
 
     // reduce product stock
-    product.stock = product.stock - stock;
+    product.stock = product.stock - quantity;
     await product.save();
 
     let order = new ordersSchema({
         user_id,
         product_id : id,
         price,
-        stock
+        quantity
         
     })
 
