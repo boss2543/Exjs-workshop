@@ -12,13 +12,22 @@ router.get('/', async function(req, res, next) {
 
 /* REGISTER users listing. */
 router.post('/register', async function(req, res, next) {
-
   let { ids, password } = req.body
 
   let user = new userSchema({
     ids,
     password : brcypt.hashSync(password, 10)
   })
+
+  let userscheck = await userSchema.findOne({ids})
+
+  if(userscheck) {
+    return res.status(400).send({
+      status : 400 ,
+      message: "User already registration " ,
+      data: null
+    })
+  }
 
   await user.save()
 
@@ -32,13 +41,21 @@ router.post('/login', async function(req, res, next) {
   let user = await userSchema.findOne({ids})
 
   if(!user){
-    return res.status(404).send("User not found")
+    return res.status(404).send({
+      status : 404 ,
+      message: "User not found" ,
+      data: null
+    })
   } 
 
   let isPasswordValid = brcypt.compareSync(password, user.password) 
 
   if(!isPasswordValid){
-    return  res.status(401).send("Invalid Password")
+    return  res.status(401).send({
+      status : 401 ,
+      message: "Invalid Password" ,
+      data: null
+    })
   }
   const token = jwt.sign({ ids: user.ids, role: user.role }, '123', { expiresIn: '1h' });
 
