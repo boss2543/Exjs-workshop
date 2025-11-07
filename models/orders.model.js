@@ -5,7 +5,7 @@ const ordersSchema = new Schema({
     user_id: { type: Schema.Types.ObjectId, ref: 'users' },
     product_id: { type: Schema.Types.ObjectId, ref: 'products' },
     price: { type: Number },
-    stock: { type: Number , default: 1 } ,
+    quantity: { type: Number , default: 1 } ,
     // approvestatus: { type: Boolean, default: false } 
 },{
     timestamps: true
