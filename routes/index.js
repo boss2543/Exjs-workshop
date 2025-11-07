@@ -31,7 +31,12 @@ router.post('/register', async function(req, res, next) {
 
   await user.save()
 
-  res.send("Insert Successfully");
+  // res.send("Insert Successfully");
+  return res.status(200).send({
+    status : 200 ,
+    message: "User registered successfully" ,
+    data: null
+  })
 });
 
 /* LOGIN users listing. */
@@ -59,7 +64,14 @@ router.post('/login', async function(req, res, next) {
   }
   const token = jwt.sign({ ids: user.ids, role: user.role }, '123', { expiresIn: '1h' });
 
-  res.send(token);
+  // res.send(token);
+  return res.status(200).send({
+    status : 200 ,
+    message: "Login Successfully" ,
+    data: {
+      token : token
+    }
+  })
 });
 
 // /* PUT users listing. */
